@@ -14,9 +14,6 @@ if [[ ! -f "$RSTUDIO_BIN" && $DB_IS_DRIVER = "TRUE" ]]; then
   rstudio-server restart || true
 fi
 
-ln -s /usr/lib/jvm/java-8-openjdk-amd64 /usr/lib/jvm/default-java
-R CMD javareconf
-
 sudo apt-get update
 sudo apt-get install unixodbc -y
 
@@ -38,5 +35,13 @@ Driver=/opt/simba/spark/lib/64/libsparkodbc_sb64.so
 
 '''
 
-dbutils.fs.mkdirs("/Users/zachary.davies@databricks.com/init")
-dbutils.fs.put("/Users/zachary.davies@databricks.com/init/r-demo-init.sh", script, True)
+dbutils.fs.mkdirs("/databricks/init")
+dbutils.fs.put("/databricks/init/r-env-init-aws.sh", script, True)
+
+# COMMAND ----------
+
+# MAGIC %fs head /databricks/init/r-env-init-aws.sh
+
+# COMMAND ----------
+
+
