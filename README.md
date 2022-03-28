@@ -3,10 +3,14 @@
 Notes and artifacts (notebooks, templates, etc) to assist with establishing R/RStudio workloads on Databricks.
 
 ## AWS
-In Progress
+- Cluster policy
+- Init Script
 
 ## Azure
-In Progress
+- Cluster policy
+- Init Script
 
 ## GCP
-In Progress
+- Cluster policy
+- Init Script
+  - **RStudio is not currently supported**
