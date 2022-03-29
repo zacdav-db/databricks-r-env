@@ -13,7 +13,7 @@
         (`$PATH` injected at start, subsequent edits won't be captured unless changing init script)
 - `cluster-policy-rstudio-users.json`: Cluster policy that simplifies creation of clusters using rstudio init script:
    - DBR 10.4 ML LTS (`10.4.x-cpu-ml-scala2.12`) (forced)
-   - Auto-termination disbaled (forced)  
+   - Auto-termination disabled (forced)  
    - Set `purpose` tag to `rstudio`
    - Policy only works for `all-purpose` clusters, will not work for `job` clusters
   
