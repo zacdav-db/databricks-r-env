@@ -21,7 +21,7 @@ echo """
 [ODBC Data Sources]
 Databricks=Databricks ODBC Connector
 [Databricks]
-Driver=/opt/simba/spark/lib/64/libsparkodbc_sb64.so
+Driver=/opt/simba/sparkodbc/lib/64/libsparkodbc_sb64.so
 """ > /etc/odbc.ini
 
 # install mlflow and ODBC as of MRAN snapshot appropriate to the 10.4 LTS DBR 
