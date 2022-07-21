@@ -1,3 +1,4 @@
+# Databricks notebook source
 script = '''#!/bin/bash
 if [[ $DB_IS_DRIVER = "TRUE" ]]; then
   
