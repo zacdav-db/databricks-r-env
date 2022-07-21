@@ -14,3 +14,23 @@ Notes and artifacts (notebooks, templates, etc) to assist with establishing R/RS
 - Cluster policy
 - Init Script
   - **RStudio is not currently supported**
+
+
+## ODBC
+Once the init script has run you can use ODBC drivers with the dsn `databricks`.
+Below is an example of connecting to a SQL warehouse.
+
+```r
+conn <- dbConnect(
+  odbc::odbc(),
+  dsn             = "databricks",
+  host            = "XXXXXXXX.cloud.databricks.com",
+  port            = "443",
+  ThriftTransport = 2,
+  SSL             = 1,
+  AuthMech        = 3,
+  UID             = "token",
+  PWD             = "dapiXXXXXXXXXXXXX",
+  HTTPPath        = "/sql/1.0/endpoints/XXXXXXXXXX"
+)
+```
