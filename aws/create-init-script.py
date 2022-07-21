@@ -17,11 +17,21 @@ if [[ $DB_IS_DRIVER = "TRUE" ]]; then
 
   # configure odbc
   echo """
-  [ODBC Data Sources]
-  Databricks=Databricks ODBC Connector
-  [Databricks]
-  Driver=/opt/simba/spark/lib/64/libsparkodbc_sb64.so
-  # extend if desired
+[ODBC Data Sources]
+databricks=Databricks ODBC Connector
+
+[databricks]
+Driver          = /opt/simba/spark/lib/64/libsparkodbc_sb64.so
+#host            = XXXXXXXXXXXXXXXX.databricks.com
+#port            = 443
+#SparkServerType = 3
+#Schema          = default
+#ThriftTransport = 2
+#SSL             = 1
+#AuthMech        = 3
+#UID             = token
+#PWD             = dapiXXXXXXXXXXXXXXXXXXXXXXX
+#HTTPPath        = /sql/1.0/endpoints/XXXXXXXXXXXXXXXX
   """ > /etc/odbc.ini
 
   # install mlflow and ODBC as of MRAN snapshot appropriate to the 10.4 LTS DBR 
@@ -29,9 +39,9 @@ if [[ $DB_IS_DRIVER = "TRUE" ]]; then
 
   # configure mlflow
   echo """
-  MLFLOW_PYTHON_BIN="/databricks/python/bin/python3"
-  MLFLOW_BIN="/databricks/python3/bin/mlflow"
-  RETICULATE_PYTHON="/databricks/python3/bin/python3"
+MLFLOW_PYTHON_BIN="/databricks/python/bin/python3"
+MLFLOW_BIN="/databricks/python3/bin/mlflow"
+RETICULATE_PYTHON="/databricks/python3/bin/python3"
   """ >> /etc/R/Renviron.site
 
   # configure reticulate
