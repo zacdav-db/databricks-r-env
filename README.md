@@ -15,8 +15,9 @@ Notes and artifacts (notebooks, templates, etc) to assist with establishing R/RS
 - Init Script
   - **RStudio is not currently supported**
 
+---
 
-## ODBC
+### Using ODBC
 Once the init script has run you can use ODBC drivers with the dsn `databricks`.
 Below is an example of connecting to a SQL warehouse.
 
