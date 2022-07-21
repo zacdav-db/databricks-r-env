@@ -1,7 +1,8 @@
 # Azure Databricks
 
+Use an ML LTS Databricks runtime, these come with RStudio already installed which will result in faster cluster start times relative to non-ML LTS
+
 - `create-init-script`: notebook which generates an init script (`/databricks/init/r-env-init-aws.sh`). Init script will: 
-   - Install RStudio Server (version: `rstudio-2022.02.0-daily-335-amd64`)
    - Install Simba Spark ODBC drivers (version: `2.6.19`)
    - Configure `/etc/odbc.ini` 
    - Install `{mlflow}` and `{odbc}` (using same MRAN snaphot as DBR 10.4 ML LTS `2022-02-24`)
