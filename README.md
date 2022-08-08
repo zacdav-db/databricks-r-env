@@ -22,6 +22,7 @@ Once the init script has run you can use ODBC drivers with the dsn `databricks`.
 Below is an example of connecting to a SQL warehouse.
 
 ```r
+library(DBI)
 conn <- dbConnect(
   odbc::odbc(),
   dsn             = "databricks",
