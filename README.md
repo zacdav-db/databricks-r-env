@@ -36,14 +36,20 @@ MRAN_SNAPSHOT=2022-02-24
 `MRAN_SNAPSHOT` is found via DBR release notes, see [below](#installing-packages-using-mran-snapshot).
 
 # Cluster Policies
-In `/cluster-policies` there are 
+In `/cluster-policies` there are:
 
-- `cluster-policy-rstudio-users.json`: Cluster policy that simplifies creation of clusters using rstudio init script:
+- `rstudio-generic.json`:
    - DBR 10.4 ML LTS (`10.4.x-cpu-ml-scala2.12`) (forced)
    - Auto-termination disabled (forced)  
-   - Set `purpose` tag to `rstudio`
-   - Policy only works for `all-purpose` clusters, will not work for `job` clusters
+   - Set `purpose` tag to `rstudio` (forced)
+   - Set `init_scripts` to include init script `dbfs:/databricks/init/r-env-init-aws.sh` (forced)
+   - Policy only works for `all-purpose` clusters, will not work for job clusters
   
+- `rstudio-single-node.json`:
+   - Extends `rstudio-generic.json` as baseline
+   - Sets cluster to `SingleNode` mode
+
+For further information on configuring cluster policies see the [docs](https://docs.databricks.com/administration-guide/clusters/policies.html).
 
 # Connecting to ODBC/JDBC
 
@@ -102,6 +108,13 @@ Download URL and instructions for using Simba drivers:
 
 To get the URL you will need to `'Copy Link Address'` on the download button, this can then replace line 18 in the init script.
 
+It's possible that the way the driver structures its contents may change with newer/older versions, this would then impact the ODBC configuration.
+
+Therefore in the snippet below, the `Driver` path may require updating.
+```
+[databricks-self]
+Driver = /opt/simba/spark/lib/64/libsparkodbc_sb64.so
+```
 ## Installing Packages Using MRAN Snapshot
 It's recommended to use the snap MRAN snapshot as the Databricks Runtime being used. This is disclosed in the DBR release notes ([example](https://docs.databricks.com/release-notes/runtime/11.0.html#installed-r-libraries)).
 
@@ -116,7 +129,6 @@ Add these variables to `/etc/R/Renviron.site`:
 - `/etc/R/Renviron.site` needs to be configured with `RETICULATE_PYTHON` variable.
   - This can be changed as neccessary, this is set to `/databricks/python3/bin/python3`.
 - `/usr/lib/R/etc/Renviron.site` is adjusted to update `PATH` with the following `PATH=${PATH}:/databricks/conda/bin`
-
 
 ## Configuring RStudio  
 Despite the ML runtime including RStudio there may be cases where a different version is required, or Server Pro/Workbench is prefered. Documentation for these processes is found [here](https://docs.databricks.com/spark/latest/sparkr/rstudio.html).
