@@ -2,9 +2,9 @@
 script = '''#!/bin/bash
 
 # SET VARIABLES
-WORKSPACE_ID=1444828305810485
-WORKSPACE_URL=e2-demo-field-eng.cloud.databricks.com
-MRAN_SNAPSHOT=2022-02-24
+WORKSPACE_ID=XXXXXXXXXXXXXXXX
+WORKSPACE_URL=XXXXXXXXXXXX.cloud.databricks.com
+MRAN_SNAPSHOT=XXXX-XXX-XX
 
 if [[ $DB_IS_DRIVER = "TRUE" ]]; then
   
@@ -69,17 +69,17 @@ RETICULATE_PYTHON="/databricks/python3/bin/python3"
   echo """library(DBI)
 con <- dbConnect(
   odbc::odbc(),
-  dsn = "databricks-self",
-  PWD = \${0:Password/Token=SparkR\:\:sparkR.conf(\"USER_TOKEN\")}
+  dsn = 'databricks-self',
+  PWD = \${0:Password/Token=sparkR.conf('USER_TOKEN')}
 )
-  """ >> /etc/rstudio/connections/'ODBC to RStudio Cluster Spark Session.R'
+  """ > /etc/rstudio/connections/'ODBC to RStudio Cluster Spark Session.R'
 
   echo """library(DBI)
 con <- dbConnect(
   odbc::odbc(),
-  dsn = "databricks",
-  HTTPPath = \${0:HTTPPath=\"\"}
-  PWD = \${1:Password/Token=SparkR\:\:sparkR.conf(\"USER_TOKEN\")}
+  dsn = 'databricks',
+  HTTPPath = '\${0:HTTPPath=\"\"}'
+  PWD = \${1:Password/Token=sparkR.conf('USER_TOKEN')}
 )
   """ >> /etc/rstudio/connections/'Databricks ODBC.R'
 

@@ -2,17 +2,38 @@
 
 Artifacts to assist with establishing R/RStudio workloads on Databricks.
 
+
 # Init Script
+
 In `/init-scripts` there is currently one notebook which configures & installs:
 - Simba Spark ODBC driver (`2.6.19`)
-- Simba Spark JDBC driver ()
 - `{mlflow}` and `{odbc}` (MRAN snapshot `2022-02-24`)
 - ODBC data sources:
   - `databricks-self`: Existing cluster (self)
   - `databricks`: Any databricks endpoint/cluster
 - RStudio Connection Snippets
 
+
 >*RStudio is not installed as part of the init script as it is pre-installed with the ML variant of the Databricks Runtime (DBR). It is recommended that you use the ML runtime (prefereably LTS) in order to reduce cluster start times.*
+
+To ensure ODBC connections work seamlessly its recommended to update the init script. The start of the script includes the following:
+
+```sh
+# SET VARIABLES
+WORKSPACE_ID=<Workspace ID>
+WORKSPACE_URL=<Workspace URL>
+MRAN_SNAPSHOT=<MRAN Snapshot Date>
+```
+
+This should look something like...
+```sh
+# SET VARIABLES
+WORKSPACE_ID=123123123123123
+WORKSPACE_URL=XXXXXXXXXX.cloud.databricks.com
+MRAN_SNAPSHOT=2022-02-24
+```
+`WORKSPACE_ID` can be derived via the workspace URL (after `?o=`) or by asking your Databricks account admin.
+`MRAN_SNAPSHOT` is found via DBR release notes, see [below](#installing-packages-using-mran-snapshot).
 
 # Cluster Policies
 In `/cluster-policies` there are 
@@ -35,7 +56,8 @@ These will be available within the [RStudio connections pane](https://db.rstudio
 
 ### **Connection Examples**
 
-`PWD` arg is expected to be a [Databricks Personal Access Token](https://docs.databricks.com/dev-tools/api/latest/authentication.html)
+`PWD` is expected to be a [Databricks Personal Access Token](https://docs.databricks.com/dev-tools/api/latest/authentication.html).  
+`HTTPPath` is provided in the cluster/endpoint UI under ODBC settings ([docs](https://docs.databricks.com/integrations/bi/jdbc-odbc-bi.html#retrieve-the-connection-details)).
 
 ```r
 # connecting via ODBC to a SQL Endpoint
@@ -71,37 +93,33 @@ conn <- dbConnect(
 )
 ```
 
-## JDBC
-TODO
-
 # Advanced
-TODO
 
-## Changing Simba Drivers
-TODO
+## Updating Simba Drivers
+Download URL and instructions for using Simba drivers:
+- [ODBC (64-BIT)](https://www.databricks.com/spark/odbc-drivers-archive)
+- [JDBC](https://www.databricks.com/spark/jdbc-drivers-archive)
 
-## Updating MRAN Snapshot
-TODO
+To get the URL you will need to `'Copy Link Address'` on the download button, this can then replace line 18 in the init script.
+
+## Installing Packages Using MRAN Snapshot
+It's recommended to use the snap MRAN snapshot as the Databricks Runtime being used. This is disclosed in the DBR release notes ([example](https://docs.databricks.com/release-notes/runtime/11.0.html#installed-r-libraries)).
+
+It's also possible to use the [MRAN time machine](https://mran.microsoft.com/timemachine) to choose a desired snapshot.
 
 ## Configuring mlflow
-TODO
+Add these variables to `/etc/R/Renviron.site`:
+- `MLFLOW_PYTHON_BIN="/databricks/python/bin/python3"`
+- `MLFLOW_BIN="/databricks/python3/bin/mlflow"`
 
-## Configuring Reticulate
-TODO
+## Configuring `{reticulate}`
+- `/etc/R/Renviron.site` needs to be configured with `RETICULATE_PYTHON` variable.
+  - This can be changed as neccessary, this is set to `/databricks/python3/bin/python3`.
+- `/usr/lib/R/etc/Renviron.site` is adjusted to update `PATH` with the following `PATH=${PATH}:/databricks/conda/bin`
+
 
 ## Configuring RStudio  
 Despite the ML runtime including RStudio there may be cases where a different version is required, or Server Pro/Workbench is prefered. Documentation for these processes is found [here](https://docs.databricks.com/spark/latest/sparkr/rstudio.html).
-
-
-- Install Simba Spark ODBC drivers (version: `2.6.19`)
-- Configure `/etc/odbc.ini` 
-- Install `{mlflow}` and `{odbc}` (using same MRAN snaphot as DBR 10.4 ML LTS `2022-02-24`)
-- Add variables to `/etc/R/Renviron.site`:
-  - `MLFLOW_PYTHON_BIN="/databricks/python/bin/python3"`
-  - `MLFLOW_BIN="/databricks/python3/bin/mlflow"`
-  - `RETICULATE_PYTHON="/databricks/python3/bin/python3"`: Use correct python version for interactive python in RStudio via `{reticulate}`
-  - `PATH=${PATH}:/databricks/conda/bin`: 
-    (`$PATH` injected at start, subsequent edits won't be captured unless changing init script)
 
 
 
