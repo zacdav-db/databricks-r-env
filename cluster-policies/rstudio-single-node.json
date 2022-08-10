@@ -3,6 +3,16 @@
     "type": "fixed",
     "value": "all-purpose"
   },
+  "spark_conf.spark.databricks.cluster.profile": {
+    "type": "fixed",
+    "value": "singleNode",
+    "hidden": true
+  },
+  "num_workers": {
+    "type": "fixed",
+    "value": 0,
+    "hidden": true
+  },
   "spark_version": {
     "type": "fixed",
     "value": "10.4.x-cpu-ml-scala2.12",
@@ -10,7 +20,7 @@
   },
   "init_scripts.0.dbfs.destination": {
     "type": "fixed",
-    "value": "dbfs:/databricks/init/r-env-init-azure.sh"
+    "value": "dbfs:/databricks/init/r-env-init-aws.sh"
   },
   "autotermination_minutes": {
     "type": "fixed",
