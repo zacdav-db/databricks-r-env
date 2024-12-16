@@ -23,7 +23,7 @@ To ensure ODBC connections work seamlessly its recommended to update the init sc
 # SET VARIABLES
 WORKSPACE_ID=<Workspace ID>
 WORKSPACE_URL=<Workspace URL>
-PPM_SNAPSHOT=<MRAN Snapshot Date>
+PPM_SNAPSHOT=<PPM Snapshot Date>
 ```
 
 This should look something like...
@@ -34,7 +34,7 @@ WORKSPACE_URL=XXXXXXXXXX.cloud.databricks.com
 PPM_SNAPSHOT=2022-02-24
 ```
 `WORKSPACE_ID` can be derived via the workspace URL (after `?o=`) or by asking your Databricks account admin.
-`MRAN_SNAPSHOT` is found via DBR release notes, see [below](#installing-packages-using-mran-snapshot).
+`PPM_SNAPSHOT` is found via DBR release notes, see [below](#installing-packages-using-posit-package-manager-snapshot).
 
 # Cluster Policies
 In `/cluster-policies` there are:
