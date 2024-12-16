@@ -15,12 +15,12 @@
   },
   "spark_version": {
     "type": "fixed",
-    "value": "10.4.x-cpu-ml-scala2.12",
+    "value": "15.4.x-cpu-ml-scala2.12",
     "hidden": true
   },
   "init_scripts.0.dbfs.destination": {
     "type": "fixed",
-    "value": "dbfs:/databricks/init/r-env-init-aws.sh"
+    "value": "dbfs:/databricks/init/r-env-init.sh"
   },
   "autotermination_minutes": {
     "type": "fixed",
