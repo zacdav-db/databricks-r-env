@@ -1,3 +1,6 @@
+> [!CAUTION]
+> Databricks-hosted RStudio Server is [deprecated](https://docs.databricks.com/en/release-notes/runtime/databricks-runtime-ver.html) and is only available on Databricks Runtime versions 15.4 and below. For more information, see [Hosted RStudio Server deprecation](https://docs.databricks.com/en/sparkr/hosted-rstudio-server.html#deprecation).
+
 # R & RStudio Environment Setup on Databricks
 
 Artifacts to assist with establishing R/RStudio workloads on Databricks.
